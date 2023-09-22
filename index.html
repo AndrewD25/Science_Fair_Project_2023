@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Reaction Speed Test</title>
+    
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!--Title and Timer-->
+        <h1>Music's Effect on Reaction Speed</h1>
+        <h2 id="timer">
+            <span id="hours">00</span>
+            :
+            <span id="minutes">00</span>
+            :
+            <span id="seconds">00</span>
+            :
+            <span id="milliseconds">00</span>
+        </h2>
+
+        <!--Box with moving target-->
+        <div id="outlineBox">
+            <div id="clickMe"></div>
+        </div>
+
+        <!--Download Results-->
+        <button id="download">Download Session Results</button>
+        
+        <!--Modal Window Elements-->
+        <div class="modal hidden" id="modalWindow">
+            <h1>I'm a modal window 😍</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+              commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </p>
+          </div>
+          <div class="overlay hidden" id="overlay"></div>
+
+
+        <script src="script.js"></script>
+    </body>
+</html>
