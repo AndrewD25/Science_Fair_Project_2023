@@ -23,7 +23,7 @@
 
         <!--Box with moving target-->
         <div id="outlineBox">
-            <div id="clickMe"></div>
+            <div id="clickMe" class="hidden"></div>
         </div>
 
         <!--Download Results-->
@@ -31,18 +31,22 @@
         
         <!--Modal Window Elements-->
         <div class="modal hidden" id="modalWindow">
-            <h1>I'm a modal window 😍</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-              occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
+            <h1>This is an experiment about music and reaction time.</h1>
+            <p>There are 10 rounds. Each round, you will be listening to a different genre of music.
+              When you begin, you will see an outlined area. After a short delay, a blue
+              box will pop up somewhere inside the area.
+              Please click on it as fast as possible. The target will appear ten times each round.
+              This round, you will be listening to <b><span id="roundMusic"></span></b>
             </p>
+            <button id="start">Begin Round</button>
           </div>
           <div class="overlay hidden" id="overlay"></div>
+
+        <!--Hidden Audio Player-->
+        <audio id="audioPlayer" class="hidden">
+            <source id="audioSource" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
 
 
         <script src="script.js"></script>
