@@ -4,30 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Reaction Speed Test</title>
+        <title>Reaction Speed Experiment</title>
     
+        <link rel="icon" href="watch.ico">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <!--Title and Timer-->
         <h1>Music's Effect on Reaction Speed</h1>
-        <h2 id="timer">
-            <span id="hours">00</span>
-            :
-            <span id="minutes">00</span>
-            :
-            <span id="seconds">00</span>
-            :
-            <span id="milliseconds">00</span>
-        </h2>
 
         <!--Box with moving target-->
         <div id="outlineBox">
             <div id="clickMe" class="hidden"></div>
         </div>
-
-        <!--Download Results-->
-        <button id="download">Download Session Results</button>
         
         <!--Modal Window Elements-->
         <div class="modal hidden" id="modalWindow">
@@ -36,9 +25,11 @@
               When you begin, you will see an outlined area. After a short delay, a blue
               box will pop up somewhere inside the area.
               Please click on it as fast as possible. The target will appear ten times each round.
+              <br><br>
               This round, you will be listening to <b><span id="roundMusic"></span></b>
             </p>
             <button id="start">Begin Round</button>
+            <p id="countdown"></p>
           </div>
           <div class="overlay hidden" id="overlay"></div>
 

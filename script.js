@@ -6,10 +6,19 @@ const timer = document.getElementById("timer");
 const outlineBox = document.getElementById("outlineBox");
 const target = document.getElementById("clickMe");
 const startBtn = document.getElementById("start");
+const countdown = document.getElementById("countdown");
 const audioPlayer = document.getElementById('audioPlayer');
 const audioSource = document.getElementById('audioSource');
 
 // Variables //
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+let allData = JSON.parse(localStorage.getItem("allData"));
+if (allData === null) {
+    allData = [];
+}
+let currentData = {};
+
 let roundCounter = 0;
 let rounds = [
     {
@@ -63,13 +72,21 @@ function shuffle(array) {
 }
 rounds = shuffle(rounds);
 let targetCounter = 0;
+let currentRound;
+let startTime;
 
 
 // Main Runtime Logic //
-function startRound() {
+async function startRound() {
+    //If no more rounds, end game and save currentData into local storage
+     //save current data into all data
+     //pop up a modal window with a reset button and download session data instructions
+     //if download button clicked, prompt for session password and if given, download all data as a txt file
+
+
     //Start playing music
     let lastRoundIndex = rounds.length - 1;
-    let currentRound = rounds[lastRoundIndex];
+    currentRound = rounds[lastRoundIndex];
     if (currentRound.name != "No Music") {
         audioSource.src = currentRound.song;
         audioPlayer.load(); // Reload the audio element with the new source
@@ -78,15 +95,18 @@ function startRound() {
     rounds.pop(); //Remove that genre of music from the list to avoid repeats;
 
     //Wait 5 seconds before starting
+    countdown.classList.remove("hidden");
     if (currentRound.name != "No Music") {
-        setTimeout(() => {
-            closeModal();
-            roundRunning();
-        }, 5000)
-    } else {
-        closeModal();
-        roundRunning();
+        startBtn.classList.add("hidden"); //Hide Start Button
+        for(let i = 5; i > 0; i--) {
+            countdown.textContent = `${i}`;
+            await new Promise((resolve) => setTimeout(() => {resolve();}, 1000));
+        }
     }
+    closeModal();
+    countdown.classList.add("hidden");
+    startTime = Date.now();
+    roundRunning();
 }
 
 function roundRunning() { //Runs every time a start button is clicked or 
@@ -101,57 +121,17 @@ function roundEnd() {
     //Round end logic
     audioPlayer.pause();
 
+    //Get round time and save into data array
+    let totalTime = Date.now() - startTime - 10000;
+    totalTime = totalTime * 0.001; //Convert ms to s
+    currentData[`${currentRound.name}Time`] = totalTime;
+
     //Reset Values
     targetCounter = 0;
-
-    let ms = document.getElementById("milliseconds");
-    ms.textContent = "00";
-    let s = document.getElementById("seconds");
-    s.textContent = "00";
-    let min = document.getElementById("minutes");
-    min.textContent = "00";
-    let hr = document.getElementById("hours");
-    hr.textContent = "00";
 
     //Start next round with popup
     showModal();
 }
-
-function runTimer() {
-    setTimeout(() => {
-        let ms = document.getElementById("milliseconds");
-        let s = document.getElementById("seconds");
-        let min = document.getElementById("minutes");
-        let hr = document.getElementById("hours");
-
-        if (!target.classList.contains("hidden")) {
-            let msCurrent = parseInt(ms.textContent);
-            let sCurrent = parseInt(s.textContent);
-            let minCurrent = parseInt(min.textContent);
-            let hrCurrent = parseInt(hr.textContent);
-        
-            //Set timer
-            if (msCurrent === 100) {
-                ms.textContent = "0"
-                if (sCurrent === 59) {
-                    s.textContent = "0"
-                    if (minCurrent === 59) {
-                        min.textContent = "0"
-                        hr.textContent = String(hrCurrent + 1);
-                    } else {
-                        min.textContent = String(minCurrent + 1);
-                    }
-                } else {
-                    s.textContent = String(sCurrent + 1);
-                }
-            } else {
-                ms.textContent = String(msCurrent + 5);
-            }
-        }   
-        runTimer();
-    }, 50)
-}
-runTimer();
 
 function selectRandomMusic() {
     let lastRoundIndex = rounds.length - 1;
@@ -163,17 +143,29 @@ function selectRandomMusic() {
 // Target Handling Functions //
 function showTarget() {
     target.classList.remove("hidden");
+
+    //Add the letter to be clicked to the middle of the target
+    let letter = document.createElement("p");
+    letter.textContent = targetKey;
+    target.appendChild(letter);
 }   
 
 function hideTarget() {
+    //Destroy child of target
+    let letter = target.children[0];
+    if (letter && letter.parentNode) {
+        letter.parentNode.removeChild(letter);
+    }
+    
     target.classList.add("hidden");
 }
 
+let targetKey = "B"; //Set a default value in case target key is set improperly
 function placeTarget() {
-    // Generate a random delay between 0.5s and 2s (500ms and 2000ms)
-    const delay = Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
+    //Get a random letter to press to "hit" target
+    targetKey = alphabet[Math.floor(Math.random() * alphabet.length)];
 
-    // Use setTimeout to execute placeTarget() after the delay
+    // Use setTimeout to execute placeTarget() after a 1s delay
     setTimeout(() => {
         //Reveal target to subject
         showTarget(); //Must be done before moving target in order for calcs to be done right. No perceivable difference
@@ -189,7 +181,7 @@ function placeTarget() {
         //Set the top and left properties of clickMe
         clickMe.style.top = randomTop + 'px';
         clickMe.style.left = randomLeft + 'px';
-    }, delay);
+    }, 1000);
 }
 
 function targetClicked() {
@@ -199,6 +191,14 @@ function targetClicked() {
     roundRunning();
 }
 
+//Check if mouse is inside target 
+let mouseInsideTarget = false;
+target.addEventListener('mouseenter', () => {
+    mouseInsideTarget = true;
+});
+target.addEventListener('mouseleave', () => {
+    mouseInsideTarget = false;
+});
 
 // Modal Window Open and Close Functions //
 function showModal() {
@@ -209,6 +209,7 @@ function showModal() {
     //Show the modal window
     modalWindow.classList.remove('hidden');
     overlay.classList.remove("hidden");
+    startBtn.classList.remove("hidden");
 };
 showModal();
 
@@ -219,5 +220,9 @@ function closeModal() {
 
 
 // Set up onclicks //
-target.onclick = targetClicked;
+document.addEventListener('keydown', (e)=>{
+    if((e.key === targetKey || e.key === targetKey.toLowerCase()) && mouseInsideTarget && !target.classList.contains("hidden")) {
+        targetClicked();
+    }
+});
 startBtn.onclick = startRound;

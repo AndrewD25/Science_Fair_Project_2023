@@ -27,16 +27,19 @@ h1 {
     height: 400px;
 }
 
-#clickMe {
+#clickMe /*Target*/ {
     position: absolute;
     border: 1px solid black;
     background-color: rgb(42, 240, 247);
     width: 50px;
     height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .modal {
@@ -45,6 +48,7 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
+    max-width: 750px;
   
     background-color: white;
     padding: 6rem;
