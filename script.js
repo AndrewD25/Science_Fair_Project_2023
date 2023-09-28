@@ -9,6 +9,11 @@ const startBtn = document.getElementById("start");
 const countdown = document.getElementById("countdown");
 const audioPlayer = document.getElementById('audioPlayer');
 const audioSource = document.getElementById('audioSource');
+const endBtns = document.getElementById("endButtons");
+const restartBtn = document.getElementById("restart");
+const downloadDataBtn = document.getElementById("downloadData");
+const modalHeader = document.getElementById("modalHeader");
+const modalText = document.getElementById("modalWindowText");
 
 // Variables //
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -78,12 +83,6 @@ let startTime;
 
 // Main Runtime Logic //
 async function startRound() {
-    //If no more rounds, end game and save currentData into local storage
-     //save current data into all data
-     //pop up a modal window with a reset button and download session data instructions
-     //if download button clicked, prompt for session password and if given, download all data as a txt file
-
-
     //Start playing music
     let lastRoundIndex = rounds.length - 1;
     currentRound = rounds[lastRoundIndex];
@@ -122,12 +121,24 @@ function roundEnd() {
     audioPlayer.pause();
 
     //Get round time and save into data array
-    let totalTime = Date.now() - startTime - 10000;
+    let totalTime = Date.now() - startTime - 10000; //The 10000 is the amount of milliseconds spent between spawning each target
     totalTime = totalTime * 0.001; //Convert ms to s
     currentData[`${currentRound.name}Time`] = totalTime;
 
     //Reset Values
     targetCounter = 0;
+
+    //If no more rounds, end game and save currentData and allData into local storage
+    if (rounds.length === 0) {
+        allData.push(currentData);
+        localStorage.setItem("allData", JSON.stringify(allData));
+        modalWindow.classList.remove('hidden');
+        overlay.classList.remove("hidden");
+        endBtns.classList.remove("hidden");
+        modalHeader.textContent = "Congratulations, you've finished the experiment!"
+        modalText.innerHTML = "Thank you for your participation!<br><br>Click the restart button to reset for a new player or click the download button to generate a data file to send to Andrew."
+        return;
+    }
 
     //Start next round with popup
     showModal();
@@ -186,7 +197,7 @@ function placeTarget() {
 
 function targetClicked() {
     hideTarget();
-    //Score incrementing here?
+    mouseInsideTarget = false;
     targetCounter++;
     roundRunning();
 }
@@ -199,6 +210,7 @@ target.addEventListener('mouseenter', () => {
 target.addEventListener('mouseleave', () => {
     mouseInsideTarget = false;
 });
+
 
 // Modal Window Open and Close Functions //
 function showModal() {
@@ -219,6 +231,18 @@ function closeModal() {
 }
 
 
+// Modal Window End of Experiment Button Functions //
+function reloadPage() {
+    location.reload();
+}
+
+function dataToTxt() {
+    if (prompt("Please enter session passcode") == 2814) {
+        //Download allData into a text file
+    }
+}
+
+
 // Set up onclicks //
 document.addEventListener('keydown', (e)=>{
     if((e.key === targetKey || e.key === targetKey.toLowerCase()) && mouseInsideTarget && !target.classList.contains("hidden")) {
@@ -226,3 +250,5 @@ document.addEventListener('keydown', (e)=>{
     }
 });
 startBtn.onclick = startRound;
+restartBtn.onclick = reloadPage;
+downloadDataBtn.onclick = dataToTxt();

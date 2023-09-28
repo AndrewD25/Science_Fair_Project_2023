@@ -20,16 +20,22 @@
         
         <!--Modal Window Elements-->
         <div class="modal hidden" id="modalWindow">
-            <h1>This is an experiment about music and reaction time.</h1>
-            <p>There are 10 rounds. Each round, you will be listening to a different genre of music.
+            <h1 id="modalHeader">This is an experiment about music and reaction speed.</h1>
+            <p id="modalWindowText">There are 10 rounds. Each round, you will be listening to a different genre of music.
               When you begin, you will see an outlined area. After a short delay, a blue
-              box will pop up somewhere inside the area.
-              Please click on it as fast as possible. The target will appear ten times each round.
+              box (the target) will pop up somewhere inside the area. The target will show a letter inside it.
+              Move the mouse over the box and press the key shown to 'hit' the target.
+              The round will end once 10 targets have been hit.
               <br><br>
               This round, you will be listening to <b><span id="roundMusic"></span></b>
             </p>
             <button id="start">Begin Round</button>
             <p id="countdown"></p>
+            <!--last round buttons-->
+            <div id="endButtons" class="hidden">
+                <button id="restart">Restart</button>
+                <button id="downloadData">Download Data</button>
+            </div>
           </div>
           <div class="overlay hidden" id="overlay"></div>
 
