@@ -80,7 +80,6 @@ let targetCounter = 0;
 let currentRound;
 let startTime;
 
-
 // Main Runtime Logic //
 async function startRound() {
     //Start playing music
@@ -238,7 +237,15 @@ function reloadPage() {
 
 function dataToTxt() {
     if (prompt("Please enter session passcode") == 2814) {
-        //Download allData into a text file
+        let readableData = JSON.stringify(allData);
+        let blob = new Blob([JSON.stringify(readableData)], { type: 'text/plain' });
+        let link = document.createElement('a');
+        link.setAttribute('href', URL.createObjectURL(blob));
+        link.setAttribute('download', `experimentSessionData` + '.txt'); //concatenating the .txt is a redundancy
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }
 
@@ -251,4 +258,4 @@ document.addEventListener('keydown', (e)=>{
 });
 startBtn.onclick = startRound;
 restartBtn.onclick = reloadPage;
-downloadDataBtn.onclick = dataToTxt();
+downloadDataBtn.onclick = dataToTxt;

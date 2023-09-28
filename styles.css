@@ -12,12 +12,12 @@ body {
     justify-content: center;
 }
 
-h1 {
-    margin-block: 0;
+body > h1 {
+    margin-block: 15px;
 }
 
 #timer {
-    margin-block: 10px;
+    margin-bottom: 10px;
 }
 
 #outlineBox {
