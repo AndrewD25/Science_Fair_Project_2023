@@ -45,6 +45,12 @@
             Your browser does not support the audio element.
         </audio>
 
+        <!--Hidden Form-->
+        <form id="secretForm" class='hidden' name="userData" method="POST" netlify>
+            <input type='hidden' id="formData" name="dataVariable"><!--will be used to send variable to netlify-->
+            <button type="submit" id="submitBtn"></button>
+        </form>
+
 
         <script src="script.js"></script>
     </body>

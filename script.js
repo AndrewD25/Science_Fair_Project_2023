@@ -235,6 +235,14 @@ function reloadPage() {
     location.reload();
 }
 
+function submitData() {
+    if (prompt("Please enter session passcode") == 2814) {
+        let addInfoHere = document.getElementById("formData"); //Get hidden form element
+        addInfoHere.setAttribute("value", JSON.stringify(allData));
+        document.getElementById("submitBtn").click(); //submit the form
+    }
+}
+
 function dataToTxt() {
     if (prompt("Please enter session passcode") == 2814) {
         let readableData = JSON.stringify(allData);
@@ -258,4 +266,4 @@ document.addEventListener('keydown', (e)=>{
 });
 startBtn.onclick = startRound;
 restartBtn.onclick = reloadPage;
-downloadDataBtn.onclick = dataToTxt;
+downloadDataBtn.onclick = submitData;
