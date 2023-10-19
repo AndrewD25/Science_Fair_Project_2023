@@ -4,14 +4,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Reaction Speed Experiment</title>
+        <title>Music's Effect on Reaction Speed</title>
     
         <link rel="icon" href="watch.ico">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <!--Title and Timer-->
-        <h1>Music's Effect on Reaction Speed</h1>
+        <h1>Hit the Target!</h1>
 
         <!--Box with moving target-->
         <div id="outlineBox">
@@ -21,13 +21,13 @@
         <!--Modal Window Elements-->
         <div class="modal hidden" id="modalWindow">
             <h1 id="modalHeader">This is an experiment about music and reaction speed.</h1>
-            <p id="modalWindowText">There are 10 rounds. Each round, you will be listening to a different genre of music.
-              When you begin, you will see an outlined area. After a short delay, a blue
-              box (the target) will pop up somewhere inside the area. The target will show a letter inside it.
-              Move the mouse over the box and press the key shown to 'hit' the target.
-              The round will end once 10 targets have been hit.
-              <br><br>
-              This round, you will be listening to <b><span id="roundMusic"></span></b>
+            <p id="modalWindowText"><span id="instructions">There are 10 rounds. Each round, you will be listening to a different genre of music.
+                When you begin, you will see an outlined area. After a short delay, a blue
+                box (the target) will pop up somewhere inside the area. The target will show a letter inside it.
+                Move the mouse over the box and press the key shown to 'hit' the target.
+                The round will end once 10 targets have been hit.
+                <br><br></span>
+              <span id="addRoundNumHere"></span>This round, you will be listening to <b><span id="roundMusic"></span></b>
             </p>
             <button id="start">Begin Round</button>
             <p id="countdown"></p>
@@ -36,7 +36,17 @@
                 <!-- <button id="restart">Restart</button>
                 <button id="downloadData">Download Data</button> -->
                 <form id="secretForm" name="userData" method="POST" netlify>
-                    <input type='hidden' id="formData" name="dataVariable"><!--will be used to send variable to netlify-->
+                    <!--will be used to send variable to netlify-->
+                    <input type='hidden' id="No MusicTime" name="dataVariable0">
+                    <input type='hidden' id="ClassicalTime" name="dataVariable1">
+                    <input type='hidden' id="PopTime" name="dataVariable2">
+                    <input type='hidden' id="MetalTime" name="dataVariable3">
+                    <input type='hidden' id="CountryTime" name="dataVariable4">
+                    <input type='hidden' id="EDMTime" name="dataVariable5">
+                    <input type='hidden' id="Hip-HopTime" name="dataVariable6">
+                    <input type='hidden' id="LofiTime" name="dataVariable7">
+                    <input type='hidden' id="JazzTime" name="dataVariable8">
+                    <input type='hidden' id="OperaTime" name="dataVariable9">
                     <button type="submit" id="submitBtn">Submit Results</button>
                 </form>
             </div>

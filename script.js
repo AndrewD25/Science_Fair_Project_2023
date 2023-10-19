@@ -11,6 +11,7 @@ const audioPlayer = document.getElementById('audioPlayer');
 const audioSource = document.getElementById('audioSource');
 const endBtns = document.getElementById("endButtons");
 // const restartBtn = document.getElementById("restart");
+const addNumHere = document.getElementById("addRoundNumHere");
 const downloadDataBtn = document.getElementById("downloadData");
 const modalHeader = document.getElementById("modalHeader");
 const modalText = document.getElementById("modalWindowText");
@@ -215,12 +216,18 @@ target.addEventListener('mouseleave', () => {
 function showModal() {
     //Set up text for each round
     let thisRound = selectRandomMusic();
+    
+    addNumHere.textContent = `This is Round ${10 - (rounds.length - 1)}. `;
     document.getElementById("roundMusic").textContent = thisRound.name; //Sets text in modal to display right music genre
 
     //Show the modal window
     modalWindow.classList.remove('hidden');
     overlay.classList.remove("hidden");
     startBtn.classList.remove("hidden");
+
+    if (rounds.length < 10) {
+        document.getElementById("instructions").classList.add("hidden"); //Hide instructions after round 1
+    }
 };
 showModal();
 
@@ -237,8 +244,12 @@ function reloadPage() {
 
 function submitData() {
     if (prompt("Please enter session passcode") == 2814) {
-        let addInfoHere = document.getElementById("formData"); //Get hidden form element
-        addInfoHere.setAttribute("value", JSON.stringify(allData));
+        indexes=["No MusicTime", "ClassicalTime", "PopTime", "MetalTime", "CountryTime", "EDMTime", "Hip-HopTime", "LofiTime", "JazzTime", "OperaTime"];
+        for (let i = 0; i < 10; i++) {
+            index = indexes[i];
+            document.getElementById(index).setAttribute("value", allData[index]);
+        }
+        debugger;
         document.getElementById("submitBtn").click(); //submit the form
     };
 }
