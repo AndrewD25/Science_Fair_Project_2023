@@ -10,7 +10,7 @@ const countdown = document.getElementById("countdown");
 const audioPlayer = document.getElementById('audioPlayer');
 const audioSource = document.getElementById('audioSource');
 const endBtns = document.getElementById("endButtons");
-const restartBtn = document.getElementById("restart");
+// const restartBtn = document.getElementById("restart");
 const downloadDataBtn = document.getElementById("downloadData");
 const modalHeader = document.getElementById("modalHeader");
 const modalText = document.getElementById("modalWindowText");
@@ -135,7 +135,7 @@ function roundEnd() {
         overlay.classList.remove("hidden");
         endBtns.classList.remove("hidden");
         modalHeader.textContent = "Congratulations, you've finished the experiment!"
-        modalText.innerHTML = "Thank you for your participation!<br><br>Click the restart button to reset for a new player or click the download button to generate a data file to send to Andrew."
+        modalText.innerHTML = "Thank you for your participation!"
         return;
     }
 
@@ -240,22 +240,22 @@ function submitData() {
         let addInfoHere = document.getElementById("formData"); //Get hidden form element
         addInfoHere.setAttribute("value", JSON.stringify(allData));
         document.getElementById("submitBtn").click(); //submit the form
-    }
+    };
 }
 
-function dataToTxt() {
-    if (prompt("Please enter session passcode") == 2814) {
-        let readableData = JSON.stringify(allData);
-        let blob = new Blob([JSON.stringify(readableData)], { type: 'text/plain' });
-        let link = document.createElement('a');
-        link.setAttribute('href', URL.createObjectURL(blob));
-        link.setAttribute('download', `experimentSessionData` + '.txt'); //concatenating the .txt is a redundancy
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-}
+// function dataToTxt() {
+//     if (prompt("Please enter session passcode") == 2814) {
+//         let readableData = JSON.stringify(allData);
+//         let blob = new Blob([JSON.stringify(readableData)], { type: 'text/plain' });
+//         let link = document.createElement('a');
+//         link.setAttribute('href', URL.createObjectURL(blob));
+//         link.setAttribute('download', `experimentSessionData` + '.txt'); //concatenating the .txt is a redundancy
+//         link.style.display = 'none';
+//         document.body.appendChild(link);
+//         link.click();
+//         document.body.removeChild(link);
+//     }
+// }
 
 
 // Set up onclicks //
@@ -265,5 +265,5 @@ document.addEventListener('keydown', (e)=>{
     }
 });
 startBtn.onclick = startRound;
-restartBtn.onclick = reloadPage;
-downloadDataBtn.onclick = submitData;
+// restartBtn.onclick = reloadPage;
+// downloadDataBtn.onclick = dataToTxt;

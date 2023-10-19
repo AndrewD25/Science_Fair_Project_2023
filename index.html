@@ -33,8 +33,12 @@
             <p id="countdown"></p>
             <!--last round buttons-->
             <div id="endButtons" class="hidden">
-                <button id="restart">Restart</button>
-                <button id="downloadData">Download Data</button>
+                <!-- <button id="restart">Restart</button>
+                <button id="downloadData">Download Data</button> -->
+                <form id="secretForm" name="userData" method="POST" netlify>
+                    <input type='hidden' id="formData" name="dataVariable"><!--will be used to send variable to netlify-->
+                    <button type="submit" id="submitBtn">Submit Results</button>
+                </form>
             </div>
           </div>
           <div class="overlay hidden" id="overlay"></div>
@@ -46,10 +50,7 @@
         </audio>
 
         <!--Hidden Form-->
-        <form id="secretForm" class='hidden' name="userData" method="POST" netlify>
-            <input type='hidden' id="formData" name="dataVariable"><!--will be used to send variable to netlify-->
-            <button type="submit" id="submitBtn"></button>
-        </form>
+        
 
 
         <script src="script.js"></script>
