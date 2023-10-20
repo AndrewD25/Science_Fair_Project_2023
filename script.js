@@ -244,14 +244,8 @@ function reloadPage() {
 
 function submitData() {
     if (prompt("Please enter session passcode") == 2814) {
-        indexes=["No MusicTime", "ClassicalTime", "PopTime", "MetalTime", "CountryTime", "EDMTime", "Hip-HopTime", "LofiTime", "JazzTime", "OperaTime"];
         const form = document.getElementById("secretForm");
-
-        for (let i = 0; i < 10; i++) {
-            index = indexes[i];
-            document.getElementById(index).setAttribute("value", allData[index]);
-        }
-
+        document.getElementById("data").setAttribute("value", JSON.stringify(allData));
         form.submit();
     };
 }
