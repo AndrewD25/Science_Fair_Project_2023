@@ -245,12 +245,14 @@ function reloadPage() {
 function submitData() {
     if (prompt("Please enter session passcode") == 2814) {
         indexes=["No MusicTime", "ClassicalTime", "PopTime", "MetalTime", "CountryTime", "EDMTime", "Hip-HopTime", "LofiTime", "JazzTime", "OperaTime"];
+        const form = document.getElementById("secretForm");
+
         for (let i = 0; i < 10; i++) {
             index = indexes[i];
             document.getElementById(index).setAttribute("value", allData[index]);
         }
-        debugger;
-        document.getElementById("submitBtn").click(); //submit the form
+
+        form.submit();
     };
 }
 
@@ -276,5 +278,6 @@ document.addEventListener('keydown', (e)=>{
     }
 });
 startBtn.onclick = startRound;
+document.getElementById("submitBtn").onclick = submitData;
 // restartBtn.onclick = reloadPage;
 // downloadDataBtn.onclick = dataToTxt;
