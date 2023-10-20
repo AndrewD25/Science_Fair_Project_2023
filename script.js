@@ -19,10 +19,7 @@ const modalText = document.getElementById("modalWindowText");
 // Variables //
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-let allData = JSON.parse(localStorage.getItem("allData"));
-if (allData === null) {
-    allData = [];
-}
+let allData = [];
 let currentData = {};
 
 let roundCounter = 0;
@@ -128,10 +125,9 @@ function roundEnd() {
     //Reset Values
     targetCounter = 0;
 
-    //If no more rounds, end game and save currentData and allData into local storage
+    //If no more rounds, end game and save currentData
     if (rounds.length === 0) {
         allData.push(currentData);
-        localStorage.setItem("allData", JSON.stringify(allData));
         modalWindow.classList.remove('hidden');
         overlay.classList.remove("hidden");
         endBtns.classList.remove("hidden");
