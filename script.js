@@ -239,7 +239,7 @@ function reloadPage() {
 }
 
 function submitData() {
-    if (prompt("Please enter session passcode") == 2814) {
+    if (true) {
         const form = document.getElementById("secretForm");
         document.getElementById("data").setAttribute("value", JSON.stringify(allData));
         form.submit();
